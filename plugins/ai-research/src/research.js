@@ -277,6 +277,12 @@ export function runResearch({
               .filter((q) => q && !searched.has(q.toLowerCase()))
               .slice(0, maxQueries);
 
+            emit("plan", {
+              round: round + 1,
+              queries,
+              planned: queries.length > 0,
+            });
+
             if (!queries.length) {
               break;
             }

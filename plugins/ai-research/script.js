@@ -214,6 +214,7 @@
       else if (evt === "thinking") handlers.onThinking(parsed.text || "");
       else if (evt === "status") handlers.onStatus?.(parsed.text || "");
       else if (evt === "sources") handlers.onSources?.(parsed);
+      else if (evt === "plan") handlers.onPlan?.(parsed);
       else if (evt === "done") handlers.onDone(parsed.finishReason);
       else if (evt === "error") handlers.onError(parsed.message || "Stream error");
       evt = undefined;
@@ -247,6 +248,26 @@
     let terminal = false;
     let status = null;
     const removeStatus = () => { status?.remove(); status = null; };
+    const showPlan = owner?.dataset.showPlan === "1";
+    let plan = null;
+    let planList = null;
+    const ensurePlan = () => {
+      if (!showPlan) return null;
+      if (!plan) {
+        plan = document.createElement("details");
+        plan.className = "glance-ai-research-plan";
+        plan.open = true;
+        const summary = document.createElement("summary");
+        summary.textContent = "Research plan";
+        planList = document.createElement("ol");
+        plan.append(summary, planList);
+        target.before(plan);
+      }
+      return planList;
+    };
+
+    owner.querySelector(".glance-ai-research-plan")?.remove();
+
     let textBuf = "";
     let thinkBuf = "";
     let started = false;
@@ -284,6 +305,19 @@
           link.rel = "noopener noreferrer";
           list.append(link);
         }
+      },
+      onPlan: (step) => {
+        const list = ensurePlan();
+        if (!list) return;
+        const round = Math.max(1, Number(step?.round) || 1);
+        const queries = Array.isArray(step?.queries)
+          ? step.queries.filter((q) => typeof q === "string" && q.trim())
+          : [];
+        const item = document.createElement("li");
+        item.textContent = queries.length
+          ? `Round ${round}: ${queries.join(" · ")}`
+          : `Round ${round}: no additional searches needed`;
+        list.append(item);
       },
       onDelta: (chunk) => {
         if (!started) {

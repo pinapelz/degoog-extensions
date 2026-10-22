@@ -78,6 +78,7 @@ export const parseSettings = (raw) => {
     hideOnError: asBool(raw["hideOnError"]),
     enableInputStyling: asBool(raw["enableInputStyling"]),
     openLinksInNewTab: asBool(raw["openLinksInNewTab"]),
+    researchShowPlan: asBool(raw["researchShowPlan"]),
     sendBrowserLanguage: asBoolOr(raw["sendBrowserLanguage"], true),
   };
 };
@@ -170,6 +171,12 @@ export const settingsSchema = [
     type: "text",
     placeholder: "gpt-4o-mini / gemini-flash-latest / claude-haiku-4-5",
     description: "Optional model id used only for deep research. If blank, uses the main Model field.",
+  },
+  {
+    key: "researchShowPlan",
+    label: "Research: Show planning steps",
+    type: "toggle",
+    description: "Show the generated web-search plan (queries and rounds) in the research panel.",
   },
   {
     key: "enableThinking",

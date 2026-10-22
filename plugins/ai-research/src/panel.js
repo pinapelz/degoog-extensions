@@ -88,7 +88,15 @@ export const sourcesHtml = (t, sources, newTab = false) => {
   );
 };
 
-export const buildPanelHtml = (t, query, sources, hideOnError, enableInputStyling, openLinksInNewTab) => {
+export const buildPanelHtml = (
+  t,
+  query,
+  sources,
+  hideOnError,
+  enableInputStyling,
+  openLinksInNewTab,
+  researchShowPlan = false,
+) => {
   const sourcesJson = JSON.stringify(
     sources.map((s) => ({ i: s.index, u: s.url, t: s.title, h: s.host, s: s.snippet, f: s.favicon })),
   );
@@ -100,6 +108,7 @@ export const buildPanelHtml = (t, query, sources, hideOnError, enableInputStylin
     ` data-stream="1" data-query="${escapeHtml(query)}"` +
     ` data-hide-on-error="${hideOnError ? "1" : "0"}"` +
     ` data-new-tab="${openLinksInNewTab ? "1" : "0"}"` +
+    ` data-show-plan="${researchShowPlan ? "1" : "0"}"` +
     ` data-sources="${escapeHtml(sourcesJson)}">` +
     sourcesHtml(t, sources, openLinksInNewTab) +
     '<div class="glance-ai-summary-wrap">' +

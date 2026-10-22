@@ -641,8 +641,12 @@
 }
 
 .glance-ai-research-status { opacity: .7; font-size: .85rem; padding: .5rem 0; }
+.glance-ai-research-plan,
 .glance-ai-research-sources { font-size: .85rem; margin-bottom: .75rem; }
+.glance-ai-research-plan summary,
 .glance-ai-research-sources summary { cursor: pointer; }
+.glance-ai-research-plan ol { margin: .35rem 0 0; padding-inline-start: 1.1rem; }
+.glance-ai-research-plan li { margin: .2rem 0; line-height: 1.45; overflow-wrap: anywhere; }
 .glance-ai-research-sources a { display: block; padding: .3rem 0; overflow-wrap: anywhere; }
 .glance-ai[data-research="1"] .glance-ai-body { max-height: none; }
 .glance-ai-input:disabled { opacity: .6; }
@@ -662,7 +666,7 @@ body.ai-research-tab-active #results-layout {
 
 body.ai-research-tab-active #results-main {
   width: 100%;
-  max-width: 900px;
+  max-width: 860px;
   margin-inline: 0;
   text-align: left;
 }

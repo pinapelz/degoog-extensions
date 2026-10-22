@@ -16,10 +16,10 @@ import { runResearch } from "./src/research.js";
 import { runStream } from "./src/pipeline.js";
 import { cleanChatMessages } from "./src/messages.js";
 
-const AI_SUMMARY_ID = "ai-summary-slot";
+const AI_SUMMARY_ID = "ai-research-slot";
 const MODEL_FIELD_KEY = "model";
 const PROVIDER_FIELD_KEY = "provider";
-const SUMMARY_NAMESPACE = "ext:ai-summary:summary";
+const SUMMARY_NAMESPACE = "ext:ai-research:research";
 const SHORT_TTL_MS = 2 * 60 * 1000;
 const ROUTE_STREAM = "/stream";
 const ROUTE_CHAT = "/chat";
@@ -107,10 +107,10 @@ const jsonError = (msg, status) =>
 export const slot = {
   id: AI_SUMMARY_ID,
   settingsId: AI_SUMMARY_ID,
-  name: "AI Summary",
+  name: "AI Research",
   waitForResults: true,
   get description() {
-    return this.t?.("ai-summary-slot.description") ?? "AI Summary";
+    return this.t?.("ai-summary-slot.description") ?? "AI Research";
   },
   position: "at-a-glance",
   isClientExposed: false,
@@ -159,6 +159,7 @@ export const slot = {
         _settings.hideOnError,
         _settings.enableInputStyling,
         _settings.openLinksInNewTab,
+        _settings.researchShowPlan,
       ),
     };
   },
@@ -175,8 +176,15 @@ export const tab = {
 };
 
 const researchPanel = (query, translate = slot.t || _translate) => {
-  const html = buildPanelHtml(translate, query.trim(), [], false,
-    _settings.enableInputStyling, _settings.openLinksInNewTab);
+  const html = buildPanelHtml(
+    translate,
+    query.trim(),
+    [],
+    false,
+    _settings.enableInputStyling,
+    _settings.openLinksInNewTab,
+    _settings.researchShowPlan,
+  );
   return html.replace('data-stream="1"', 'data-stream="1" data-research="1"')
     .replace(/\{\{\s*t:([^} ]+)\s*\}\}/g, (_, key) => {
       const labels = {
