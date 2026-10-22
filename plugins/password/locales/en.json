@@ -1,6 +1,0 @@
-{
-  "password-command": {
-    "name": "Password",
-    "description": "Generate a random password."
-  }
-}

@@ -1,9 +1,8 @@
-# Official degoog extensions
+# degoog-extensions
 
 ---
 
-Official degoog extensions.
-This is the only officially curated and maintained store by the degoog devs.
+Forked from the official [degoog extensions repo](https://github.com/degoog-org/degoog)
 
-Please view the full list of extensions here: https://degoog-org.github.io/community-extensions/
-With the latest release this README has gotten way too big to maintain and they are so much nicer listed in there.
+# What's here?
+- 

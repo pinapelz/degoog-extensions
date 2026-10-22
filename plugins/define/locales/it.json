@@ -1,9 +1,0 @@
-{
-  "define-command": {
-    "name": "Definisci",
-    "description": "Cerca le definizioni delle parole con l'API Free Dictionary.",
-    "usage": "Uso: <code>!define &lt;parola&gt;</code> oppure prova &quot;define serendipity&quot;",
-    "notFoundBefore": "Nessuna definizione per",
-    "fetchError": "Impossibile recuperare la definizione:"
-  }
-}

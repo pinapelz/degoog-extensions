@@ -1,6 +1,0 @@
-{
-  "qr-command": {
-    "name": "Codice QR",
-    "description": "Genera un codice QR per un URL."
-  }
-}
