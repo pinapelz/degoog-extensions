@@ -313,9 +313,15 @@
         const queries = Array.isArray(step?.queries)
           ? step.queries.filter((q) => typeof q === "string" && q.trim())
           : [];
+        const scrapes = Array.isArray(step?.scrape)
+          ? step.scrape.filter((s) => typeof s === "string" && s.trim())
+          : [];
+        const parts = [];
+        if (queries.length) parts.push(queries.join(" · "));
+        if (scrapes.length) parts.push(`Read ${scrapes.join(", ")}`);
         const item = document.createElement("li");
-        item.textContent = queries.length
-          ? `Round ${round}: ${queries.join(" · ")}`
+        item.textContent = parts.length
+          ? `Round ${round}: ${parts.join(" — ")}`
           : `Round ${round}: no additional searches needed`;
         list.append(item);
       },

@@ -8,7 +8,7 @@
       "path": "plugins/ai-research",
       "name": "AI Research",
       "description": "An extension of the official AI Summary plugin. Summarizes search results, conducts deep research. Works with OpenAI-compatible APIs, OpenAI, OpenRouter, Ollama, llama.cpp, vLLM, LM Studio, Gemini, Anthropic, and Perplexity.",
-      "version": "1.0.2",
+      "version": "1.1.0",
       "type": "slot",
       "minDegoogVersion": "1.1.0",
       "legacyIds": [

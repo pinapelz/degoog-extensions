@@ -16,6 +16,7 @@ export const FOLLOWUP_MIN_TOKENS = 512;
 export const DEFAULT_MAX_SOURCES = 40;
 export const DEFAULT_MAX_ROUNDS = 2;
 export const DEFAULT_MAX_QUERIES = 3;
+export const DEFAULT_MAX_SCRAPE = 3;
 
 const asStr = (v) => (typeof v === "string" ? v : String(v ?? ""));
 const asBool = (v) => v === "true" || v === true;
@@ -54,6 +55,8 @@ export const parseSettings = (raw) => {
   const maxSources = parseInt(asStr(raw["researchSearchMaxSources"]) || "", 10) || DEFAULT_MAX_SOURCES;
   const maxRounds = parseInt(asStr(raw["researchSearchMaxRounds"]) || "", 10) || DEFAULT_MAX_ROUNDS;
   const maxQueries = parseInt(asStr(raw["researchSearchMaxQueries"]) || "", 10) || DEFAULT_MAX_QUERIES;
+  const rawScrape = parseInt(asStr(raw["researchMaxScrape"]).trim(), 10);
+  const maxScrape = Number.isNaN(rawScrape) ? DEFAULT_MAX_SCRAPE : Math.max(0, rawScrape);
 
   return {
     researchSearchUrl: asStr(raw["researchSearchUrl"]) || "http://127.0.0.1:4444/api/search",
@@ -61,6 +64,8 @@ export const parseSettings = (raw) => {
     researchSearchMaxSources: Math.max(1, maxSources),
     researchSearchMaxRounds: Math.max(1, maxRounds),
     researchSearchMaxQueries: Math.max(1, maxQueries),
+    researchMaxScrape: maxScrape,
+    jinaApiKey: asStr(raw["jinaApiKey"]).trim(),
     provider: normaliseProvider(asStr(raw["provider"])),
     openAICompatProvider: normaliseCompatProvider(asStr(raw["openAICompatProvider"])),
     baseUrl: asStr(raw["baseUrl"]),
@@ -119,6 +124,8 @@ export const settingsSchema = [
   { key: "researchSearchMaxSources", label: "Research: Max sources", type: "number", default: DEFAULT_MAX_SOURCES, description: "How many sources to include in the prompt." },
   { key: "researchSearchMaxRounds", label: "Research: Max rounds", type: "number", default: DEFAULT_MAX_ROUNDS, description: "How many rounds of research to do." },
   { key: "researchSearchMaxQueries", label: "Research: Max number of search queries", type: "number", default: DEFAULT_MAX_QUERIES, description: "How many searches can be done per round." },
+  { key: "researchMaxScrape", label: "Research: Max pages to scrape", type: "number", default: DEFAULT_MAX_SCRAPE, description: "Maximum number of links the planner can scrape per turn via Jina Reader (0 to disable)." },
+  { key: "jinaApiKey", label: "Research: Jina Reader API key", type: "password", secret: true, description: "Optional API key for r.jina.ai when scraping pages during research." },
   {
     key: PROVIDER_KEY,
     label: "Provider",
