@@ -170,6 +170,11 @@ export const settingsSchema = [
     label: "Research: Model override",
     type: "text",
     placeholder: "gpt-4o-mini / gemini-flash-latest / claude-haiku-4-5",
+    optionsFrom: {
+      dependsOn: ["provider"],
+      refreshLabel: "Fetch models",
+      emptyHint: "Fetch models to list what this endpoint serves, or type any model id.",
+    },
     description: "Optional model id used only for deep research. If blank, uses the main Model field.",
   },
   {

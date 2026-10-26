@@ -18,6 +18,7 @@ import { cleanChatMessages } from "./src/messages.js";
 
 const AI_SUMMARY_ID = "ai-research-slot";
 const MODEL_FIELD_KEY = "model";
+const RESEARCH_MODEL_FIELD_KEY = "researchModel";
 const PROVIDER_FIELD_KEY = "provider";
 const SUMMARY_NAMESPACE = "ext:ai-research:research";
 const SHORT_TTL_MS = 2 * 60 * 1000;
@@ -130,7 +131,7 @@ export const slot = {
   async getFieldOptions(key, values) {
     const settings = parseSettings(values ?? {});
     if (key === PROVIDER_FIELD_KEY) return detectProvider(settings);
-    if (key === MODEL_FIELD_KEY) return fetchModels(settings);
+    if (key === MODEL_FIELD_KEY || key === RESEARCH_MODEL_FIELD_KEY) return fetchModels(settings);
     return { options: [] };
   },
 
